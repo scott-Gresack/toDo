@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-----Adobe Launch --->
+
+	<!------ AA L -->
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M6R8982');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scotts To Do list App</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css">
+	<style>
+	h1{
+    background: #2980b9;
+    color: white;
+    margin: 0;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: normal ;
+
+}
+#id{
+   margin: 0 auto; 
+}
+#container{
+    margin: 100px auto;
+    background: #f7f7f7;
+    width: 360px;
+    border: 2px solid grey;
+    box-shadow: 0 0 3px rgba(0,0, 0.2);
+    
+}
+.completed{
+    text-decoration: line-through;
+    display: in-line;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+	
+	</style>
+		<script src="//assets.adobedtm.com/4faed591d364/f41247a43fde/launch-532ae709592a-development.min.js" async></script>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M6R8982"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+<div id="container">
+    <h1>Scotts To Do list</h1>
+    <input type="text" id="newToDo">
+    <ul>
+        <li><span>X </span>Learn Vue.js</li>
+        <li><span>X </span>Learn Node js</li>
+        <li><span>X </span>Learn mySql</li>
+    </ul>
+</div>
+    <h1 id="h1"></h1>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+	<script>
+        // var span = document.querySelectorAll("span");
+// span.forEach(function(span){
+//     span.addEventLisner
+// })
+// jQuery
+//CHECKS OFF SPECIFIC TODOS BY CLICKING
+$("ul").on("click", "li", function(){
+    $(this).toggleClass("completed");
+    document.querySelector("#h1").innerHTML = "Are you SURE??? you want to delete this item?";
+
+});
+//CLICK ON X TO DELETE TODO
+$("ul").on("click", "span",function(event){
+    $(this).parent().fadeOut(500, function(){
+      $(this).remove();  
+      let removed = $(this).text();
+      dataLayer.push({
+          "event": "destroyed",
+          "completed": removed
+      })
+    })
+    event.stopPropagation();
+    document.querySelector("#h1").innerHTML = "";
+})
+
+$("input[type='text']").keypress(function(event){
+    if(event.which === 13){
+        let val = $(this).val();
+        //afterwards push into dataLayer
+        dataLayer.push({
+            event: "Added Event",
+            toDo : val
+        });            
+        $(this).val('');
+        $("ul").append("<li><span>X </span>" + val + "</li>");
+
+    }
+})
+
+
+</script>
+</body>
+</html>

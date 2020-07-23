@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M6R8982');</script>
+    <!-- End Google Tag Manager -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDI --To Do list--</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://static.fontawesome.com/css/fontawesome-app.css">
+			<script src="//assets.adobedtm.com/4faed591d364/f41247a43fde/launch-532ae709592a-development.min.js" async></script>
+<link rel="stylesheet" href="styles.css">
+	<style>
+	
+body{
+    background: #7F7FD5;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #91EAE4, #86A8E7, #7F7FD5);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #91EAE4, #86A8E7, #7F7FD5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+h1{
+    font-family: lobster;
+	background: #2980b9;
+    color: white;
+    margin: 0;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: normal ;
+ 
+}
+#id{
+   margin: 0 auto; 
+}
+#container{
+    margin: 100px auto;
+    background: #f7f7f7;
+    width: 360px;
+    border: 2px solid grey;
+    box-shadow: 0 0 3px rgba(0,0, 0.2);
+    
+}
+.completed{
+    text-decoration: line-through;
+    display: in-line;
+}
+input{
+    font-weight: bolder;
+    color: #2980b9;
+    font-size: 18px;
+    background-color: #f7f7f7;
+    width: 100%;
+    padding: 13px 13px 13px 13px;
+    box-sizing: border-box;
+    border: 3px solid rgb(241, 237, 237);
+}
+input:focus{
+    background-attachment: #fff;
+    border: 3px solid #2980b9;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+span {
+    background: #e74c3c;
+    height: 40px;
+    margin-right:20px ;
+    text-align: center;
+    color: white;
+    width: 0;
+    display: inline-block;
+    transition: .2s linear;
+    opacity: 0;
+}
+li:hover span{
+    width: 40px;
+    opacity: 1.0;
+}
+li{
+    background: white;
+    height: 40px;
+    line-height: 40px;
+    color: #666;
+}
+li:nth-child(2n){
+    background-color:#f7f7f7;
+}
+
+h1 i{
+    float: right;
+}
+	</style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M6R8982"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+<div id="container">
+    <h1 style="text-align: center;">To Do List
+        <i id="sdi" class="fas fa-rocket"></i>
+    </h1>
+    <div class="list">
+    <input type="text" id="newToDo" placeholder="Add New To Do!">
+    <ul>
+        <li><span><i class="fa fa-trash"></i></span>
+        Learn Vue.js</li>
+        <li><span><i class="fa fa-trash"></i></span>Learn Node js</li>
+        <li><span><i class="fa fa-trash"></i></span>Learn mySql</li>
+    </ul>
+    </div>
+</div>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script src="index.js"></script>
+        <script src="https://kit.fontawesome.com/2b8fc6ffef.js" crossorigin="anonymous"></script>
+	<script>
+$("ul").on("click", "li", function(){
+    $(this).toggleClass("completed");
+    document.querySelector("#h1").innerHTML = "Are you SURE??? you want to delete this item?";
+
+});
+//CLICK ON X TO DELETE TODO
+$("ul").on("click", "span",function(event){
+    $(this).parent().fadeOut(500, function(){
+      $(this).remove();  
+      let removed = $(this).text();
+      dataLayer.push({
+          "event": "destroyed",
+          "completed": removed
+      })
+    })
+    event.stopPropagation();
+    document.querySelector("#h1").innerHTML = "";
+})
+
+$("input[type='text']").keypress(function(event){
+    if(event.which === 13){
+        let val = $(this).val();
+        //afterwards push into dataLayer
+        dataLayer.push({
+            event: "Added Event",
+            toDo : val
+        });            
+        $(this).val('');
+        $("ul").append("<li><span><i class='fa fa-trash'></i></span>" + val + "</li>");
+		
+
+    }
+})
+$(".fa-rocket").click(function(){
+    $(".list").fadeToggle();
+	
+})
+
+
+	
+	</script>
+</body>
+</html>
